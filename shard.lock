@@ -1,0 +1,26 @@
+version: 2.0
+shards:
+  ameba:
+    git: https://github.com/crystal-ameba/ameba.git
+    version: 0.14.3
+
+  callback:
+    git: https://github.com/amberframework/callback.git
+    version: 0.9.1
+
+  cli:
+    git: https://github.com/amberframework/cli.git
+    version: 0.11.3
+
+  db:
+    git: https://github.com/crystal-lang/crystal-db.git
+    version: 0.10.1
+
+  optarg:
+    git: https://github.com/amberframework/optarg.git
+    version: 0.9.2
+
+  sqlite3:
+    git: https://github.com/crystal-lang/crystal-sqlite3.git
+    version: 0.18.0
+

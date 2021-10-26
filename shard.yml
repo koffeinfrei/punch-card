@@ -1,0 +1,26 @@
+name: at-work
+version: 0.1.0
+
+authors:
+  - Alexis Reigel <mail@koffeinfrei.org>
+
+description: |
+  A CLI for tracking your work time
+
+dependencies:
+  cli:
+    github: amberframework/cli
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+
+targets:
+  at-work:
+    main: src/at-work.cr
+
+crystal: 1.2.1
+
+license: GPL-3.0
