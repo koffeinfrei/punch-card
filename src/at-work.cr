@@ -37,8 +37,23 @@ class AtWork < Cli::Supercommand
   end
 
   class Show < Cli::Command
+    class Options
+      arg "date",
+        required: true,
+        # TODO locale specific date format
+        desc: "The date where the summary should bla bla TODO. Can be 'today' or a specific date like '2021-10-26'"
+    end
+
     def run
-      raw_entries = Store.new.select(Time.local)
+      date =
+        if args.date == "today"
+          Time.local
+        elsif args.date == "yesterday"
+          Time.local - 1.day
+        else
+          Time.parse_local(args.date, "%F")
+        end
+      raw_entries = Store.new.select(date)
       puts DaySummary.new(raw_entries).to_s
     end
   end
