@@ -12,6 +12,8 @@ dependencies:
     github: amberframework/cli
   sqlite3:
     github: crystal-lang/crystal-sqlite3
+  tablo:
+    github: hutou/tablo
 
 development_dependencies:
   ameba:

@@ -4,14 +4,45 @@ class DaySummary
   def initialize(@entries : Array(Entry))
   end
 
-  def to_s
+  def get
     # TODO wording
-    return "Not finished" if @entries.size.odd?
+    # return "Not finished" if @entries.size.odd?
 
-    @entries.in_groups_of(2).sum { |(from, to)|
-      return Time::Span.new if from.nil? || to.nil?
+    # TODO check that 1st is "start", 2nd is "stop" type
+    span_entries = @entries.map(&.time).in_groups_of(2).map do |(from, to)|
+      {from: from, to: to}
+    end
 
-      to.time - from.time
-    }
+    sum = span_entries.sum do |entry|
+      from = entry[:from]
+      to = entry[:to]
+
+      break Time::Span.new if from.nil? || to.nil?
+
+      to - from
+    end
+
+    DaySummaryEntry.new(span_entries, sum)
+  end
+end
+
+struct DaySummaryEntry
+  property spans, sum
+
+  def initialize(@spans : Array(NamedTuple(from: Time | Nil, to: Time | Nil)), @sum : Time::Span)
+  end
+
+  def day
+    date = spans[0][:from]
+    return "" if date.nil?
+    date.to_s("%Y-%m-%d")
+  end
+
+  def sum_in_hours
+    sum.total_hours
+  end
+
+  def diff_in_hours
+    (sum_in_hours - 8).round(2)
   end
 end
