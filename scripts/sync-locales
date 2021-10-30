@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+require 'tmpdir'
+
+Dir.mktmpdir do |dir|
+  `git clone --depth 1 git@github.com:svenfuchs/rails-i18n.git #{dir}`
+
+  Dir.glob("#{dir}/rails/locale/*.yml").each do |path|
+    locale = File.basename(path, '.yml')
+
+    yaml = YAML.load_file(path)
+
+    if format = yaml[locale]['date']['formats']['default']
+      hash = { locale => { 'date_format' => format } }
+
+      File.write("./src/locales/#{locale}.yml", hash.to_yaml)
+    end
+  end
+end

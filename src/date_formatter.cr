@@ -1,20 +1,36 @@
+require "yaml"
+
 class DateFormatter
-  DAY_SHORT = "%d.%m.%Y"
-  DAY_WITH_NAME = "%a  %d.%m.%Y"
+  LOCALES = Hash(String, Hash(String, String)).new
+
+  macro define_locale(name, day_short_format)
+    LOCALES["#{ {{name}} }"] = {
+      "day_short" => "#{ {{day_short_format}} }",
+      "day_with_name" => "%a  #{ {{day_short_format}} }"
+    }
+  end
+
+  Dir.glob("#{__DIR__}/locales/*.yml").each do |path|
+    locale = Path[path].stem
+
+    yaml = File.open(path) { |file| YAML.parse(file) }
+    define_locale(locale, yaml[locale]["date_format"].as_s)
+  end
+
   MONTH_WITH_NAME = "%b %Y"
   TIME            = "%H:%M"
 
-  getter date
+  getter date, locale
 
-  def initialize(@date : Time)
+  def initialize(@date : Time, @locale = "de-CH")
   end
 
   def day_short
-    date.to_s(DAY_SHORT)
+    date.to_s(LOCALES[locale]["day_short"])
   end
 
   def day_with_name
-    date.to_s(DAY_WITH_NAME)
+    date.to_s(LOCALES[locale]["day_with_name"])
   end
 
   def month_with_name
