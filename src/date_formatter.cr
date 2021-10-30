@@ -1,5 +1,7 @@
 require "yaml"
 
+require "./i18n"
+
 class DateFormatter
   LOCALES = Hash(String, Hash(String, String)).new
 
@@ -20,9 +22,10 @@ class DateFormatter
   MONTH_WITH_NAME = "%b %Y"
   TIME            = "%H:%M"
 
-  getter date, locale
+  getter date, locale : String
 
-  def initialize(@date : Time, @locale = "de-CH")
+  def initialize(@date : Time)
+    @locale = I18n::Locale.current
   end
 
   def day_short
