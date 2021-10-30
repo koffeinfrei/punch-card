@@ -21,7 +21,7 @@ class DayTableOutput
           # TODO this is just for the compiler.
           return if from.nil? || to.nil?
 
-          "#{from.to_s("%H:%M")} - #{to.to_s("%H:%M")}"
+          "#{DateFormatter.new(from).time} - #{DateFormatter.new(to).time}"
         }.join("\n"),
         "#{"\n" * (span_count - 1)}#{day_summary_entry.sum_in_hours}",
         "#{"\n" * (span_count - 1)}#{diff_in_hours}",
@@ -34,7 +34,7 @@ class DayTableOutput
     end
 
     puts "╭──────────────────╮"
-    puts "│ 📅  2021-10-26   │"
+    puts "│ 📅  #{DateFormatter.new(day_summary_entry.day).day_short}   │"
     puts table
   end
 end
