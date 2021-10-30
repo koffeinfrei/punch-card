@@ -6,6 +6,7 @@ require "./date_parser"
 require "./entry_type"
 require "./day_summary"
 require "./day_table_output"
+require "./month_table_output"
 
 HELP_FOOTER = "Made with ☕️  by Koffeinfrei"
 
@@ -46,19 +47,35 @@ class AtWork < Cli::Supercommand
     end
 
     def run
-      date =
-        if args.date == "today"
-          Time.local
-        elsif args.date == "yesterday"
-          Time.local - 1.day
-        else
-          Time.parse_local(args.date, "%F")
-        end
+      if args.date == "month"
+        month = Time.local.month
+        year = Time.local.year
+        day_summary_entries = (1..Time.local.day).to_a
+          .compact_map { |day|
+            date = Time.local(year, month, day)
+            date unless date.saturday? || date.sunday?
+          }
+          .map do |date|
+            raw_entries = Store.new.select(date)
+            DaySummary.new(date, raw_entries).get
+          end
 
-      raw_entries = Store.new.select(date)
-      day_summary_entry = DaySummary.new(raw_entries).get
+        MonthTableOutput.new(day_summary_entries).render
+      else
+        date =
+          if args.date == "today"
+            Time.local
+          elsif args.date == "yesterday"
+            Time.local - 1.day
+          else
+            Time.parse_local(args.date, "%F")
+          end
 
-      DayTableOutput.new(day_summary_entry).render
+        raw_entries = Store.new.select(date)
+        day_summary_entry = DaySummary.new(date, raw_entries).get
+
+        DayTableOutput.new(day_summary_entry).render
+      end
     end
   end
 end

@@ -1,7 +1,9 @@
 require "./entry"
 
 class DaySummary
-  def initialize(@entries : Array(Entry))
+  getter date, entries
+
+  def initialize(@date : Time, @entries : Array(Entry))
   end
 
   def get
@@ -9,7 +11,7 @@ class DaySummary
     # return "Not finished" if @entries.size.odd?
 
     # TODO check that 1st is "start", 2nd is "stop" type
-    span_entries = @entries.map(&.time).in_groups_of(2).map do |(from, to)|
+    span_entries = entries.map(&.time).in_groups_of(2).map do |(from, to)|
       {from: from, to: to}
     end
 
@@ -22,20 +24,14 @@ class DaySummary
       to - from
     end
 
-    DaySummaryEntry.new(span_entries, sum)
+    DaySummaryEntry.new(date, span_entries, sum)
   end
 end
 
 struct DaySummaryEntry
-  property spans, sum
+  getter day, spans, sum
 
-  def initialize(@spans : Array(NamedTuple(from: Time | Nil, to: Time | Nil)), @sum : Time::Span)
-  end
-
-  def day
-    date = spans[0][:from]
-    return "" if date.nil?
-    date.to_s("%Y-%m-%d")
+  def initialize(@day : Time, @spans : Array(NamedTuple(from: Time | Nil, to: Time | Nil)), @sum : Time::Span)
   end
 
   def sum_in_hours
