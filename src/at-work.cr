@@ -44,7 +44,7 @@ class AtWork < Cli::Supercommand
     class Options
       arg "date",
         required: true,
-        desc: "The date for which to show a summary. Can be 'today', 'yesterday', 'month' or a specific date like '2021-10-26'"
+        desc: "The date for which to show a summary. Can be 'today', 'yesterday', 'month' or a specific date like '#{DateFormatter.new(Time.local).day_short}'"
     end
 
     def run
