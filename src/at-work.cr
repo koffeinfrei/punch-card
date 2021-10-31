@@ -7,6 +7,7 @@ require "./entry_type"
 require "./day_summary"
 require "./day_table_output"
 require "./month_table_output"
+require "./date_formatter"
 
 HELP_FOOTER = "Made with ☕️  by Koffeinfrei"
 
@@ -62,14 +63,7 @@ class AtWork < Cli::Supercommand
 
         MonthTableOutput.new(day_summary_entries).render
       else
-        date =
-          if args.date == "today"
-            Time.local
-          elsif args.date == "yesterday"
-            Time.local - 1.day
-          else
-            Time.parse_local(args.date, "%F")
-          end
+        date = DateParser.parse(args.date)
 
         raw_entries = Store.new.select(date)
         day_summary_entry = DaySummary.new(date, raw_entries).get

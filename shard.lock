@@ -28,3 +28,7 @@ shards:
     git: https://github.com/hutou/tablo.git
     version: 0.9.6
 
+  timecop:
+    git: https://github.com/crystal-community/timecop.cr.git
+    version: 0.4.1
+

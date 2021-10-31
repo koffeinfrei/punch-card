@@ -18,6 +18,8 @@ dependencies:
 development_dependencies:
   ameba:
     github: crystal-ameba/ameba
+  timecop:
+    github: crystal-community/timecop.cr
 
 targets:
   at-work:
