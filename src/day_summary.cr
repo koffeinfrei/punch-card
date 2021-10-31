@@ -41,4 +41,8 @@ struct DaySummaryEntry
   def diff_in_hours
     (sum_in_hours - 8).round(2)
   end
+
+  def empty?
+    spans.empty?
+  end
 end

@@ -23,8 +23,11 @@ class MonthTableOutput
     end
 
     date = DateFormatter.new(day_summary_entries.first.day).month_with_name
-    puts "╭──────────────────╮"
-    puts "│ 📅  #{date}     │"
-    puts table
+
+    output = [] of String
+    output << "╭──────────────────╮"
+    output << "│ 📅  #{date}     │"
+    output << table.to_s
+    output.join("\n")
   end
 end

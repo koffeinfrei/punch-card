@@ -7,11 +7,26 @@ class DayTableOutput
   end
 
   def render
+    output = [] of String
+    output << "╭──────────────────╮"
+    output << "│ 📅  #{DateFormatter.new(day_summary_entry.day).day_short}   │"
+
+    if day_summary_entry.empty?
+      output << render_empty.to_s
+    else
+      output << render_table.to_s
+    end
+
+    output.join("\n")
+  end
+
+  private def render_table
     diff_in_hours = day_summary_entry.diff_in_hours
     if diff_in_hours.positive?
       diff_in_hours = "+#{diff_in_hours}"
     end
     span_count = day_summary_entry.spans.size
+
     table_data = [
       [
         day_summary_entry.spans.map { |entry|
@@ -27,14 +42,16 @@ class DayTableOutput
         "#{"\n" * (span_count - 1)}#{diff_in_hours}",
       ],
     ]
-    table = Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED) do |t|
+    Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED) do |t|
       t.add_column("Entries", width: 16) { |n| n[0] }
       t.add_column("Total hours", width: 16, align_body: Tablo::Justify::Right) { |n| n[1] }
       t.add_column("Diff", width: 16, align_body: Tablo::Justify::Right) { |n| n[2] }
     end
+  end
 
-    puts "╭──────────────────╮"
-    puts "│ 📅  #{DateFormatter.new(day_summary_entry.day).day_short}   │"
-    puts table
+  private def render_empty
+    Tablo::Table.new([["No entries"]], connectors: Tablo::CONNECTORS_SINGLE_ROUNDED, header_frequency: nil) do |t|
+      t.add_column("", width: 16) { |n| n[0] }
+    end
   end
 end

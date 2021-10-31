@@ -61,14 +61,14 @@ class AtWork < Cli::Supercommand
             DaySummary.new(date, raw_entries).get
           end
 
-        MonthTableOutput.new(day_summary_entries).render
+        puts MonthTableOutput.new(day_summary_entries).render
       else
         date = DateParser.parse(args.date)
 
         raw_entries = Store.new.select(date)
         day_summary_entry = DaySummary.new(date, raw_entries).get
 
-        DayTableOutput.new(day_summary_entry).render
+        puts DayTableOutput.new(day_summary_entry).render
       end
     end
   end
