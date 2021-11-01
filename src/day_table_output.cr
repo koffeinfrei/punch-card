@@ -1,6 +1,8 @@
 require "./day_summary"
+require "./date_formatter"
+require "./table_output"
 
-class DayTableOutput
+class DayTableOutput < TableOutput
   getter day_summary_entry
 
   def initialize(@day_summary_entry : DaySummaryEntry)
@@ -46,12 +48,6 @@ class DayTableOutput
       t.add_column("Entries", width: 16) { |n| n[0] }
       t.add_column("Total hours", width: 16, align_body: Tablo::Justify::Right) { |n| n[1] }
       t.add_column("Diff", width: 16, align_body: Tablo::Justify::Right) { |n| n[2] }
-    end
-  end
-
-  private def render_empty
-    Tablo::Table.new([["No entries"]], connectors: Tablo::CONNECTORS_SINGLE_ROUNDED, header_frequency: nil) do |t|
-      t.add_column("", width: 16) { |n| n[0] }
     end
   end
 end
