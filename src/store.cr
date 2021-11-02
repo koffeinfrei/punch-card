@@ -5,19 +5,6 @@ require "./entry"
 require "./entry_type"
 
 class Store
-  def create_database
-    with_database do |db|
-      create = <<-SQL
-        CREATE TABLE IF NOT EXISTS entries (
-          uuid TEXT NOT NULL,
-          time TEXT NOT NULL,
-          type INTEGER NOT NULL
-        )
-      SQL
-      db.exec(create)
-    end
-  end
-
   def insert(type, time)
     with_database do |db|
       db.exec("INSERT INTO entries VALUES (?, ?, ?)", UUID.random.to_s, time, type.to_i)
@@ -41,7 +28,20 @@ class Store
   private def with_database
     # TODO store in home
     DB.open "sqlite3://./data.db" do |db|
+      create_database(db)
+
       yield db
     end
+  end
+
+  private def create_database(db)
+    create = <<-SQL
+      CREATE TABLE IF NOT EXISTS entries (
+        uuid TEXT NOT NULL,
+        time TEXT NOT NULL,
+        type INTEGER NOT NULL
+      )
+    SQL
+    db.exec(create)
   end
 end

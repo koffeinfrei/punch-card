@@ -20,9 +20,7 @@ class AtWork < Cli::Supercommand
     end
 
     def run
-      store = Store.new
-      store.create_database
-      store.insert(EntryType::Start, DateParser.parse(args.start))
+      Store.new.insert(EntryType::Start, DateParser.parse(args.start))
     end
   end
 
@@ -34,9 +32,7 @@ class AtWork < Cli::Supercommand
     end
 
     def run
-      store = Store.new
-      store.create_database
-      store.insert(EntryType::Stop, DateParser.parse(args.stop))
+      Store.new.insert(EntryType::Stop, DateParser.parse(args.stop))
     end
   end
 
