@@ -36,6 +36,22 @@ class AtWork < Cli::Supercommand
     end
   end
 
+  class Span < Cli::Command
+    class Options
+      arg "span",
+        required: true,
+        desc: "Enter a time span. Must be in the format '<from>-<to>'. <from> and <to> can be 'now' or a specific time like '17:30'"
+    end
+
+    def run
+      start, stop = args.span.split("-")
+
+      store = Store.new
+      store.insert(EntryType::Start, DateParser.parse(start))
+      store.insert(EntryType::Stop, DateParser.parse(stop))
+    end
+  end
+
   class Show < Cli::Command
     class Options
       arg "date",
