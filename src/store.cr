@@ -5,6 +5,12 @@ require "./entry"
 require "./entry_type"
 
 class Store
+  {% if flag?(:release) %}
+    FILE = Path.home.join(".config", "at-work", "data.db")
+  {% else %}
+    FILE = "./data.db"
+  {% end %}
+
   def insert(type, time)
     with_database do |db|
       db.exec("INSERT INTO entries VALUES (?, ?, ?)", UUID.random.to_s, time, type.to_i)
@@ -26,8 +32,9 @@ class Store
   end
 
   private def with_database
-    # TODO store in home
-    DB.open "sqlite3://./data.db" do |db|
+    Dir.mkdir_p(File.dirname(FILE))
+
+    DB.open "sqlite3://#{FILE}" do |db|
       create_database(db)
 
       yield db
