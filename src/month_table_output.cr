@@ -14,11 +14,14 @@ class MonthTableOutput < TableOutput
     output = [] of String
     output << "╭──────────────────╮"
     output << "│ 📅  #{date}     │"
+    output << "╰──────────────────╯"
 
     if day_summary_entries.all?(&.empty?)
-      output << render_empty.to_s
+      output << render_empty
     else
-      output << render_table.to_s
+      output << render_table
+
+      output << render_total
     end
 
     output.join("\n")
@@ -34,9 +37,21 @@ class MonthTableOutput < TableOutput
     end
 
     Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED) do |t|
-      t.add_column("Day", width: 16) { |n| n[0] }
-      t.add_column("Total hours", width: 16, align_body: Tablo::Justify::Right) { |n| n[1] }
-      t.add_column("Diff", width: 16, align_body: Tablo::Justify::Right) { |n| n[2] }
-    end
+      t.add_column("Day", width: COLUMN_WIDTH) { |n| n[0] }
+      t.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[1] }
+      t.add_column("Diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[2] }
+    end.to_s
+  end
+
+  private def render_total
+    table_data = [
+      ["Total", day_summary_entries.sum(&.sum_in_hours), day_summary_entries.sum(&.diff_in_hours)]
+    ]
+
+    Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED, header_frequency: nil) do |t|
+      t.add_column("Total label", width: COLUMN_WIDTH) { |n| n[0] }
+      t.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[1] }
+      t.add_column("Total diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[2] }
+    end.to_s
   end
 end

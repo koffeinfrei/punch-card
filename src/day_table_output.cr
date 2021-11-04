@@ -44,10 +44,11 @@ class DayTableOutput < TableOutput
         "#{"\n" * (span_count - 1)}#{diff_in_hours}",
       ],
     ]
+
     Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED) do |t|
       t.add_column("Entries", width: 16) { |n| n[0] }
       t.add_column("Total hours", width: 16, align_body: Tablo::Justify::Right) { |n| n[1] }
       t.add_column("Diff", width: 16, align_body: Tablo::Justify::Right) { |n| n[2] }
-    end
+    end.to_s
   end
 end
