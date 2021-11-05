@@ -9,26 +9,15 @@ class MonthTableOutput < TableOutput
   def initialize(@day_summary_entries : Array(DaySummaryEntry))
   end
 
-  def render
-    date = DateFormatter.new(day_summary_entries.first.day).month_with_name
-
-    output = [] of String
-    output << "╭──────────────────╮"
-    output << "│ 📅  #{date}     │"
-    output << "╰──────────────────╯"
-
-    if day_summary_entries.all?(&.empty?)
-      output << render_empty
-    else
-      output << render_table
-
-      output << render_total
-    end
-
-    output.join("\n")
+  def empty?
+    day_summary_entries.all?(&.empty?)
   end
 
-  private def render_table
+  def header_content
+    DateFormatter.new(day_summary_entries.first.day).month_with_name
+  end
+
+  def render_table
     table_data = day_summary_entries.map do |entry|
       [
         DateFormatter.new(entry.day).day_with_name,
@@ -41,10 +30,10 @@ class MonthTableOutput < TableOutput
       t.add_column("Day", width: COLUMN_WIDTH) { |n| n[0] }
       t.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[1] }
       t.add_column("Diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[2] }
-    end.to_s
+    end
   end
 
-  private def render_total
+  def render_footer
     table_data = [
       [
         "Total",
@@ -57,6 +46,6 @@ class MonthTableOutput < TableOutput
       t.add_column("Total label", width: COLUMN_WIDTH) { |n| n[0] }
       t.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[1] }
       t.add_column("Total diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[2] }
-    end.to_s
+    end
   end
 end

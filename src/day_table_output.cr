@@ -9,21 +9,15 @@ class DayTableOutput < TableOutput
   def initialize(@day_summary_entry : DaySummaryEntry)
   end
 
-  def render
-    output = [] of String
-    output << "╭──────────────────╮"
-    output << "│ 📅  #{DateFormatter.new(day_summary_entry.day).day_short}   │"
-
-    if day_summary_entry.empty?
-      output << render_empty.to_s
-    else
-      output << render_table.to_s
-    end
-
-    output.join("\n")
+  def empty?
+    day_summary_entry.empty?
   end
 
-  private def render_table
+  def header_content
+    DateFormatter.new(day_summary_entry.day).day_short
+  end
+
+  def render_table
     span_count = day_summary_entry.spans.size
 
     table_data = [
@@ -46,6 +40,9 @@ class DayTableOutput < TableOutput
       t.add_column("Entries", width: 16) { |n| n[0] }
       t.add_column("Total hours", width: 16, align_body: Tablo::Justify::Right) { |n| n[1] }
       t.add_column("Diff", width: 16, align_body: Tablo::Justify::Right) { |n| n[2] }
-    end.to_s
+    end
+  end
+
+  def render_footer
   end
 end
