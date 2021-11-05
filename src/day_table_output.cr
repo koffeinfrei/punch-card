@@ -1,5 +1,6 @@
 require "./day_summary"
 require "./date_formatter"
+require "./number_formatter"
 require "./table_output"
 
 class DayTableOutput < TableOutput
@@ -23,10 +24,6 @@ class DayTableOutput < TableOutput
   end
 
   private def render_table
-    diff_in_hours = day_summary_entry.diff_in_hours
-    if diff_in_hours.positive?
-      diff_in_hours = "+#{diff_in_hours}"
-    end
     span_count = day_summary_entry.spans.size
 
     table_data = [
@@ -40,8 +37,8 @@ class DayTableOutput < TableOutput
 
           "#{DateFormatter.new(from).time} - #{DateFormatter.new(to).time}"
         }.join("\n"),
-        "#{"\n" * (span_count - 1)}#{day_summary_entry.sum_in_hours}",
-        "#{"\n" * (span_count - 1)}#{diff_in_hours}",
+        "#{"\n" * (span_count - 1)}#{NumberFormatter.new(day_summary_entry.sum_in_hours).rounded}",
+        "#{"\n" * (span_count - 1)}#{NumberFormatter.new(day_summary_entry.diff_in_hours).rounded_and_prefixed}",
       ],
     ]
 

@@ -1,5 +1,6 @@
 require "./day_summary"
 require "./date_formatter"
+require "./number_formatter"
 require "./table_output"
 
 class MonthTableOutput < TableOutput
@@ -31,8 +32,8 @@ class MonthTableOutput < TableOutput
     table_data = day_summary_entries.map do |entry|
       [
         DateFormatter.new(entry.day).day_with_name,
-        entry.sum_in_hours,
-        entry.diff_in_hours,
+        NumberFormatter.new(entry.sum_in_hours).rounded,
+        NumberFormatter.new(entry.diff_in_hours).rounded_and_prefixed,
       ]
     end
 
@@ -45,7 +46,11 @@ class MonthTableOutput < TableOutput
 
   private def render_total
     table_data = [
-      ["Total", day_summary_entries.sum(&.sum_in_hours), day_summary_entries.sum(&.diff_in_hours)]
+      [
+        "Total",
+        NumberFormatter.new(day_summary_entries.sum(&.sum_in_hours)).rounded,
+        NumberFormatter.new(day_summary_entries.sum(&.diff_in_hours)).rounded_and_prefixed,
+      ],
     ]
 
     Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED, header_frequency: nil) do |t|

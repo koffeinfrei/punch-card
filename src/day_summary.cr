@@ -39,7 +39,7 @@ struct DaySummaryEntry
   end
 
   def diff_in_hours
-    (sum_in_hours - 8).round(2)
+    sum_in_hours - 8
   end
 
   def empty?
