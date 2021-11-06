@@ -127,13 +127,17 @@ class PunchCard < Cli::Command
 
         Add an entry:
           start <time>
-            The time you start working. Can be 'now' or a specific time like '08:15'
+            The time you start working
+            Can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("08:15")).time}'
 
           stop <time>
-            The time you stop working. Can be 'now' or a specific time like '17:30'
+            The time you stop working
+            Can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("17:30")).time}'
 
           span <start time>-<stop time>
-            A time span of work. Must be in the format '<from>-<to>'. <from> and <to> can be 'now' or a specific time like '17:30'
+            A time span of work
+            Must be in the format '<from>-<to>'
+            <from> and <to> can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("17:30")).time}'
 
         Show an entry:
           <date>
