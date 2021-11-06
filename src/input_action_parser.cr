@@ -3,6 +3,7 @@ require "./input_action/stop_input_action"
 require "./input_action/span_input_action"
 require "./input_action/show_day_input_action"
 require "./input_action/show_month_input_action"
+require "./input_action/fallback_input_action"
 
 class InputActionParser
   getter input
@@ -21,6 +22,8 @@ class InputActionParser
       InputAction::ShowDayInputAction.new(input)
     elsif InputAction::ShowMonthInputAction.new(input).matches?
       InputAction::ShowMonthInputAction.new(input)
+    else
+      InputAction::FallbackInputAction.new(input)
     end
   end
 end
