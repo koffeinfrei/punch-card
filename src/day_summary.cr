@@ -1,10 +1,10 @@
-require "./entry"
+require "./store/entry"
 require "./day_summary_entry"
 
 class DaySummary
   getter date, entries
 
-  def initialize(@date : Time, @entries : Array(Entry))
+  def initialize(@date : Time, @entries : Array(Store::Entry))
   end
 
   def get

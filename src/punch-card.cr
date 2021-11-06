@@ -3,7 +3,7 @@ require "tablo"
 
 require "./store"
 require "./date_parser"
-require "./entry_type"
+require "./store/entry_type"
 require "./day_summary"
 require "./day_table_output"
 require "./month_table_output"
@@ -26,7 +26,7 @@ class StartInputAction < InputAction
 
   def run
     time = input.split(" ").last
-    Store.new.insert(EntryType::Start, DateParser.parse(time))
+    Store.new.insert(Store::EntryType::Start, DateParser.parse(time))
   end
 end
 
@@ -37,7 +37,7 @@ class StopInputAction < InputAction
 
   def run
     time = input.split(" ").last
-    Store.new.insert(EntryType::Stop, DateParser.parse(time))
+    Store.new.insert(Store::EntryType::Stop, DateParser.parse(time))
   end
 end
 
@@ -50,8 +50,8 @@ class SpanInputAction < InputAction
     start, stop = input.split("-")
 
     store = Store.new
-    store.insert(EntryType::Start, DateParser.parse(start))
-    store.insert(EntryType::Stop, DateParser.parse(stop))
+    store.insert(Store::EntryType::Start, DateParser.parse(start))
+    store.insert(Store::EntryType::Stop, DateParser.parse(stop))
   end
 end
 

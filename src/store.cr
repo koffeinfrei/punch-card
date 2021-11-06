@@ -1,8 +1,8 @@
 require "sqlite3"
 require "uuid"
 
-require "./entry"
-require "./entry_type"
+require "./store/entry"
+require "./store/entry_type"
 
 class Store
   {% if flag?(:release) %}
