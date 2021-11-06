@@ -51,7 +51,7 @@ class PunchCard < Cli::Command
 
   def run
     input = ([args.input] + args.nameless_args).join(" ")
-    action = InputActionParser.new(input).parse
+    action = InputActionParser.parse(input)
     action.run
   end
 end
