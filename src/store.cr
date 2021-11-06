@@ -6,7 +6,7 @@ require "./entry_type"
 
 class Store
   {% if flag?(:release) %}
-    FILE = Path.home.join(".config", "at-work", "data.db")
+    FILE = Path.home.join(".config", "punch-card", "data.db")
   {% else %}
     FILE = "./data.db"
   {% end %}

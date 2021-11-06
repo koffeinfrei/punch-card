@@ -1,4 +1,4 @@
-name: at-work
+name: punch-card
 version: 0.1.0
 
 authors:
@@ -22,8 +22,8 @@ development_dependencies:
     github: crystal-community/timecop.cr
 
 targets:
-  at-work:
-    main: src/at-work.cr
+  punch-card:
+    main: src/punch-card.cr
 
 crystal: 1.2.1
 

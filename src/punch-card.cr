@@ -9,7 +9,7 @@ require "./day_table_output"
 require "./month_table_output"
 require "./date_formatter"
 
-class AtWork < Cli::Supercommand
+class PunchCard < Cli::Supercommand
   HELP_FOOTER = "Made with ☕️  by Koffeinfrei"
 
   version {{ `shards version #{__DIR__}`.chomp.stringify }}
@@ -122,4 +122,4 @@ class AtWork < Cli::Supercommand
   end
 end
 
-AtWork.run(ARGV)
+PunchCard.run(ARGV)
