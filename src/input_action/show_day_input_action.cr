@@ -1,9 +1,10 @@
 require "../input_action"
+require "../date_parser"
 
 class InputAction
   class ShowDayInputAction < InputAction
     def matches?
-      input == "today"
+      !!DateParser.parse(input)
     end
 
     def run
