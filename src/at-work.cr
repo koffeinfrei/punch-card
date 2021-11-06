@@ -9,14 +9,32 @@ require "./day_table_output"
 require "./month_table_output"
 require "./date_formatter"
 
-HELP_FOOTER = "Made with ☕️  by Koffeinfrei"
-
 class AtWork < Cli::Supercommand
+  HELP_FOOTER = "Made with ☕️  by Koffeinfrei"
+
+  version {{ `shards version #{__DIR__}`.chomp.stringify }}
+
+  class Options
+    help
+    version
+  end
+
+  class Help
+    header "Simple CLI to track your work time."
+    footer HELP_FOOTER
+  end
+
   class Start < Cli::Command
     class Options
       arg "start",
         required: true,
         desc: "The time you start working. Can be 'now' or a specific time like '08:15'"
+      help
+    end
+
+    class Help
+      header "Adds a start time entry"
+      footer HELP_FOOTER
     end
 
     def run
@@ -29,6 +47,12 @@ class AtWork < Cli::Supercommand
       arg "stop",
         required: true,
         desc: "The time you stop working. Can be 'now' or a specific time like '17:30'"
+      help
+    end
+
+    class Help
+      header "Adds a stop time entry"
+      footer HELP_FOOTER
     end
 
     def run
@@ -41,6 +65,12 @@ class AtWork < Cli::Supercommand
       arg "span",
         required: true,
         desc: "Enter a time span. Must be in the format '<from>-<to>'. <from> and <to> can be 'now' or a specific time like '17:30'"
+      help
+    end
+
+    class Help
+      header "Adds a span (start-stop) time entry"
+      footer HELP_FOOTER
     end
 
     def run
@@ -57,6 +87,12 @@ class AtWork < Cli::Supercommand
       arg "date",
         required: true,
         desc: "The date for which to show a summary. Can be 'today', 'yesterday', 'month' or a specific date like '#{DateFormatter.new(Time.local).day_short}'"
+      help
+    end
+
+    class Help
+      header "Outputs a summary of your tracked time"
+      footer HELP_FOOTER
     end
 
     def run
