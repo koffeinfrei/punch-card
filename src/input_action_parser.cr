@@ -1,9 +1,5 @@
-require "./input_action/start_input_action"
-require "./input_action/stop_input_action"
-require "./input_action/span_input_action"
-require "./input_action/show_day_input_action"
-require "./input_action/show_month_input_action"
-require "./input_action/fallback_input_action"
+require "./input_action"
+require "./input_action/*"
 
 class InputActionParser
   getter input
@@ -12,18 +8,13 @@ class InputActionParser
   end
 
   def parse
-    if InputAction::StartInputAction.new(input).matches?
-      InputAction::StartInputAction.new(input)
-    elsif InputAction::StopInputAction.new(input).matches?
-      InputAction::StopInputAction.new(input)
-    elsif InputAction::SpanInputAction.new(input).matches?
-      InputAction::SpanInputAction.new(input)
-    elsif InputAction::ShowDayInputAction.new(input).matches?
-      InputAction::ShowDayInputAction.new(input)
-    elsif InputAction::ShowMonthInputAction.new(input).matches?
-      InputAction::ShowMonthInputAction.new(input)
-    else
-      InputAction::FallbackInputAction.new(input)
+    InputAction.available_actions.each do |action|
+      action_instance = action.new(input)
+      if action_instance.matches?
+        return action_instance
+      end
     end
+
+    InputAction::FallbackInputAction.new(input)
   end
 end

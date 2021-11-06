@@ -3,7 +3,7 @@ require "../input_action"
 class InputAction
   class FallbackInputAction < InputAction
     def matches?
-      true
+      false
     end
 
     def run
