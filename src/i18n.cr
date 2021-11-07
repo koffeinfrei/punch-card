@@ -28,7 +28,8 @@ module I18n
     TIME            = "%H:%M"
 
     {% for path in `ls -d -1 "#{__DIR__}/locales"/*`.lines %}
-      yaml = File.open({{path}}) { |file| YAML.parse(file) }
+      content = {{ read_file(path) }}
+      yaml = YAML.parse(content)
       locale = Path[{{path}}].stem
       day_short_format = yaml[locale]["date_format"].as_s
 
