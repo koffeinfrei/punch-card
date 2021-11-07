@@ -1,0 +1,57 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup crystal (Ubuntu)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: curl -fsSL https://crystal-lang.org/install.sh | sudo bash
+
+      - name: Setup crystal (Mac)
+        if: startsWith(matrix.os, 'macOS')
+        run: brew install crystal
+
+      - name: Install dependencies
+        run: shards install
+
+      - name: Format check
+        run: crystal tool format --check
+
+      - name: Ameba (static code analysis)
+        run: bin/ameba
+
+      - name: Spec
+        run: crystal spec
+
+      - name: Build
+        env:
+          OS_NAME: ${{ matrix.os }}
+        run: |
+          export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/openssl/lib/pkgconfig # for macOS
+          crystal --version
+          shards build --release
+
+  release:
+    runs-on: ubuntu-latest
+
+    needs: build
+
+    steps:
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          sudo npm install --global release-it
+          sudo chown -R $USER:$(id -gn $USER) /home/runner/.config
+          release-it --verbose --ci --no-increment

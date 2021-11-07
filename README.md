@@ -2,6 +2,10 @@
 
 <div align="center">
 
+[![GitHub release](https://img.shields.io/github/v/release/koffeinfrei/punch-card.svg?style=flat-square)](https://github.com/koffeinfrei/punch-card/releases)
+&nbsp;
+[![Build Status](https://img.shields.io/github/workflow/status/koffeinfrei/punch-card/CI.svg?label=CI&style=flat-square)](https://github.com/koffeinfrei/punch-card/actions)
+&nbsp;
 ![License](https://img.shields.io/github/license/koffeinfrei/punch-card.svg?style=flat-square)
 
 </div>
