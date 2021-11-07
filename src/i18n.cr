@@ -27,19 +27,16 @@ module I18n
     MONTH_WITH_NAME = "%b %Y"
     TIME            = "%H:%M"
 
-    macro define_locale(name, day_short_format)
-      LOCALIZED["#{ {{name}} }"] = {
-        "day_short" => "#{ {{day_short_format}} }",
-        "day_with_name" => "%a  #{ {{day_short_format}} }"
+    {% for path in `ls -d -1 "#{__DIR__}/locales"/*`.lines %}
+      yaml = File.open({{path}}) { |file| YAML.parse(file) }
+      locale = Path[{{path}}].stem
+      day_short_format = yaml[locale]["date_format"].as_s
+
+      LOCALIZED["#{locale}"] = {
+        "day_short" => "#{day_short_format}",
+        "day_with_name" => "%a  #{day_short_format}"
       }
-    end
-
-    Dir.glob("#{__DIR__}/locales/*.yml").each do |path|
-      locale = Path[path].stem
-
-      yaml = File.open(path) { |file| YAML.parse(file) }
-      define_locale(locale, yaml[locale]["date_format"].as_s)
-    end
+    {% end %}
 
     def self.get(name)
       return MONTH_WITH_NAME if name == "month_with_name"
