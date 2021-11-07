@@ -16,6 +16,10 @@ module I18n
           locale || "en"
         end
     end
+
+    def self.current=(value)
+      @@current = value
+    end
   end
 
   class Format

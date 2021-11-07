@@ -15,6 +15,15 @@ describe DateParser do
       end
     end
 
+    around_each do |example|
+      locale_before = I18n::Locale.current
+      I18n::Locale.current = "de-CH"
+
+      example.run
+
+      I18n::Locale.current = locale_before
+    end
+
     it "parses a time" do
       DateParser.parse("12:03").should eq Time.local(2021, 10, 30, 12, 3)
     end
