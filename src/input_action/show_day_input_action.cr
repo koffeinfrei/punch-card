@@ -4,7 +4,7 @@ require "../date_parser"
 class InputAction
   class ShowDayInputAction < InputAction
     def matches?
-      !!DateParser.parse(input)
+      DateParser.parse_date(input) || DateParser.parse_literal_date(input)
     end
 
     def run

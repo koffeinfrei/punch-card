@@ -2,8 +2,11 @@ require "./i18n"
 
 class DateParser
   def self.parse(value)
-    literal = parse_literal(value)
-    return literal unless literal.nil?
+    literal_date = parse_literal_date(value)
+    return literal_date unless literal_date.nil?
+
+    literal_time = parse_literal_time(value)
+    return literal_time unless literal_time.nil?
 
     date = parse_date(value)
     return date unless date.nil?
@@ -14,11 +17,18 @@ class DateParser
     raise "The input value '#{value}' is not an understood date format"
   end
 
-  def self.parse_literal(value)
+  def self.parse_literal_date(value)
+    # omit the time part
+    now = Time.local(*Time.local.date)
+
+    return now if value == "today"
+    return (now - 1.day) if value == "yesterday"
+  end
+
+  def self.parse_literal_time(value)
     now = Time.local
 
-    return now if value.in?(["now", "today"])
-    return (now - 1.day) if value == "yesterday"
+    return now if value == "now"
   end
 
   def self.parse_date(value)

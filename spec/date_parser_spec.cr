@@ -7,6 +7,10 @@ def now
   Time.local(2021, 10, 30, 11, 9)
 end
 
+def today
+  Time.local(2021, 10, 30, 0, 0)
+end
+
 describe DateParser do
   describe ".parse" do
     around_each do |example|
@@ -33,7 +37,7 @@ describe DateParser do
     end
 
     it "parses 'today'" do
-      DateParser.parse("today").should eq now
+      DateParser.parse("today").should eq today
     end
 
     it "parses 'now'" do
@@ -41,7 +45,7 @@ describe DateParser do
     end
 
     it "parses 'yesterday'" do
-      DateParser.parse("yesterday").should eq Time.local(2021, 10, 29, 11, 9)
+      DateParser.parse("yesterday").should eq Time.local(2021, 10, 29, 0, 0)
     end
 
     it "raises an error on uparseable input" do
