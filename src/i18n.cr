@@ -5,7 +5,7 @@ module I18n
     def self.current
       @@current ||=
         begin
-          raw_locale = `locale | grep LC_TIME`
+          raw_locale = `env | grep LC_TIME`
           # the environment variable on linux is in the form of
           # `LC_TIME=de_CH.UTF-8`
           locale = raw_locale
