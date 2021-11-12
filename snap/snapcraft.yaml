@@ -1,0 +1,36 @@
+name: punch-card
+base: core18
+version: '0.1'
+title: Punch card
+summary: Work time tracker
+description: This is a simple CLI to track your work time
+license: GPL-3.0
+
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: amd64
+
+apps:
+  punch-card:
+    command: bin/punch-card
+    plugs:
+      - home
+
+parts:
+  punch-card:
+    plugin: crystal
+    source: .
+    crystal-build-options:
+      - '--release'
+    build-packages:
+      - git
+      - libssl-dev
+      - libsqlite3-dev
+    stage-packages:
+      - sqlite3
+    # workaround for https://bugs.launchpad.net/snapcraft/+bug/1936671
+    override-pull: |
+      snapcraftctl pull
+      rm -rf $SNAPCRAFT_PART_SRC/lib $SNAPCRAFT_PART_SRC/bin

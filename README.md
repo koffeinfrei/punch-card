@@ -79,6 +79,12 @@ $ punch-card month
 
 ## Installation
 
+### Install from snap
+
+```bash
+sudo snap install punch-card
+```
+
 ### Install from source
 
 First you'll need to [install
