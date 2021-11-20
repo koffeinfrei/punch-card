@@ -26,10 +26,11 @@ class DayTableOutput < TableOutput
           from = entry[:from]
           to = entry[:to]
 
-          # TODO this is just for the compiler.
-          return if from.nil? || to.nil?
-
-          "#{DateFormatter.new(from).time} - #{DateFormatter.new(to).time}"
+          if to
+            "#{DateFormatter.new(from).time} - #{DateFormatter.new(to).time}"
+          else
+            "#{DateFormatter.new(from).time} - "
+          end
         }.join("\n"),
         "#{"\n" * (span_count - 1)}#{NumberFormatter.new(day_summary_entry.sum_in_hours).rounded}",
         "#{"\n" * (span_count - 1)}#{NumberFormatter.new(day_summary_entry.diff_in_hours).rounded_and_prefixed}",

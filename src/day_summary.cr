@@ -12,9 +12,6 @@ class DaySummary
   end
 
   def get
-    # TODO wording
-    # return "Not finished" if @entries.size.odd?
-
     span_entries = entries.in_groups_of(2).map do |(from, to)|
       raise EMPTY_FORMAT % {from: from} if from.nil?
 
