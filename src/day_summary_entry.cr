@@ -1,7 +1,7 @@
 struct DaySummaryEntry
   getter day, spans, sum
 
-  def initialize(@day : Time, @spans : Array(NamedTuple(from: Time | Nil, to: Time | Nil)), @sum : Time::Span)
+  def initialize(@day : Time, @spans : Array(NamedTuple(from: Time, to: Time | Nil)), @sum : Time::Span)
   end
 
   def sum_in_hours

@@ -53,6 +53,8 @@ class PunchCard < Cli::Command
     input = ([args.input] + args.nameless_args).join(" ")
     action = InputActionParser.parse(input)
     action.run
+  rescue e
+    puts "There's was a problem: \n#{e.message}"
   end
 end
 
