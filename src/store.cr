@@ -20,7 +20,7 @@ class Store
   def select(time)
     data = [] of Entry
     with_database do |db|
-      db.query "SELECT time, type FROM entries WHERE strftime('%Y-%m-%d', time) = ? ORDER BY time", time.to_s("%Y-%m-%d") do |result|
+      db.query "SELECT time, type FROM entries WHERE strftime('%Y-%m-%d', time) = ? ORDER BY time ASC, type DESC", time.to_s("%Y-%m-%d") do |result|
         result.each do
           time, type = result.read(Time, Int)
           data << Entry.new(EntryType.from_value(type), time)
