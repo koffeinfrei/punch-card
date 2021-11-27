@@ -105,6 +105,24 @@ Crystal](https://crystal-lang.org/reference/installation/).
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
+### Versioning
+
+[Semantic Versioning](https://semver.org/) is used, obviously.
+
+There's a script that bumps the version in all necessary files and creates a
+git tag.
+
+```bash
+# bump the major version, e.g. from 1.2.0 to 2.2.0
+$ scripts/version bump:major
+
+# bump the minor version, e.g. from 1.2.0 to 1.3.0
+$ scripts/version bump:minor
+
+# bump the patch version, e.g. from 1.2.0 to 1.2.1
+$ scripts/version bump:patch
+```
+
 ---
 
 Made with ☕️  by [Koffeinfrei](https://github.com/koffeinfrei)
