@@ -40,7 +40,7 @@ class DayTableOutput < TableOutput
     Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED) do |t|
       t.add_column("Entries", width: COLUMN_WIDTH) { |n| n[0] }
       t.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[1] }
-      t.add_column("Diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[2] }
+      t.add_column("Diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right, styler: DIFF_STYLER) { |n| n[2] }
     end
   end
 

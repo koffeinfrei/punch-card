@@ -1,5 +1,17 @@
+require "colorize"
+
 abstract class TableOutput
   COLUMN_WIDTH = 16
+  DIFF_STYLER  = ->(cell : Tablo::CellType) do
+    color =
+      if cell.to_s.starts_with?("-")
+        :red
+      else
+        :green
+      end
+
+    cell.colorize(color).to_s
+  end
 
   abstract def empty?
   abstract def header_content

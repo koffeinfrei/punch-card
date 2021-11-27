@@ -13,7 +13,8 @@ dependencies:
   sqlite3:
     github: crystal-lang/crystal-sqlite3
   tablo:
-    github: hutou/tablo
+    github: koffeinfrei/tablo
+    branch: feature/styler
 
 development_dependencies:
   ameba:
