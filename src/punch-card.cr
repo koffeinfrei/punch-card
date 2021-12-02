@@ -54,7 +54,7 @@ class PunchCard < Cli::Command
     action = InputActionParser.parse(input)
     action.run
   rescue e
-    puts "There's was a problem: \n#{e.message}"
+    puts "There was a problem: \n#{e.message}"
   end
 end
 
