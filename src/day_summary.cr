@@ -28,9 +28,11 @@ class DaySummary
       from = entry[:from]
       to = entry[:to]
 
-      break Time::Span.new if to.nil?
-
-      to - from
+      if to
+        to - from
+      else
+        Time::Span.new
+      end
     end
 
     DaySummaryEntry.new(date, span_entries, sum)
