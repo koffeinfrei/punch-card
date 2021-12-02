@@ -25,8 +25,8 @@ shards:
     version: 0.18.0
 
   tablo:
-    git: https://github.com/koffeinfrei/tablo.git
-    version: 0.9.6+git.commit.54337430c7544a5257299d805bccef496720bbcd
+    git: https://github.com/hutou/tablo.git
+    version: 0.10.1
 
   timecop:
     git: https://github.com/crystal-community/timecop.cr.git
