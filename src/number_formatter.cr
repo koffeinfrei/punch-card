@@ -5,16 +5,21 @@ class NumberFormatter
   end
 
   def as_time
-    hours = number.to_i
-    minutes = (number - hours).abs
+    abs_number = number.abs
+    hours = abs_number.to_i
+    minutes = abs_number - hours
+
     "#{hours}:#{(60 * minutes).round.to_i.to_s.rjust(2, '0')}"
   end
 
   def as_prefixed_time
-    if number.positive?
-      "+#{as_time}"
-    else
-      as_time
-    end
+    prefix =
+      if number.positive?
+        "+"
+      else
+        "-"
+      end
+
+    "#{prefix}#{as_time}"
   end
 end
