@@ -1,6 +1,6 @@
 name: punch-card
 base: core18
-version: 0.2.0
+version: 0.3.0
 title: Punch card
 summary: Work time tracker
 description: This is a simple CLI to track your work time
