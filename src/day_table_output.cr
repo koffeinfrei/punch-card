@@ -32,8 +32,8 @@ class DayTableOutput < TableOutput
             "#{DateFormatter.new(from).time} - "
           end
         }.join("\n"),
-        "#{"\n" * (span_count - 1)}#{NumberFormatter.new(day_summary_entry.sum_in_hours).rounded}",
-        "#{"\n" * (span_count - 1)}#{NumberFormatter.new(day_summary_entry.diff_in_hours).rounded_and_prefixed}",
+        "#{"\n" * (span_count - 1)}#{NumberFormatter.new(day_summary_entry.sum_in_hours).as_time}",
+        "#{"\n" * (span_count - 1)}#{NumberFormatter.new(day_summary_entry.diff_in_hours).as_prefixed_time}",
       ],
     ]
 

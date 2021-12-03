@@ -21,8 +21,8 @@ class MonthTableOutput < TableOutput
     table_data = day_summary_entries.map do |entry|
       [
         DateFormatter.new(entry.day).day_with_name,
-        NumberFormatter.new(entry.sum_in_hours).rounded,
-        NumberFormatter.new(entry.diff_in_hours).rounded_and_prefixed,
+        NumberFormatter.new(entry.sum_in_hours).as_time,
+        NumberFormatter.new(entry.diff_in_hours).as_prefixed_time,
       ]
     end
 
@@ -37,8 +37,8 @@ class MonthTableOutput < TableOutput
     table_data = [
       [
         "Total",
-        NumberFormatter.new(day_summary_entries.sum(&.sum_in_hours)).rounded,
-        NumberFormatter.new(day_summary_entries.sum(&.diff_in_hours)).rounded_and_prefixed,
+        NumberFormatter.new(day_summary_entries.sum(&.sum_in_hours)).as_time,
+        NumberFormatter.new(day_summary_entries.sum(&.diff_in_hours)).as_prefixed_time,
       ],
     ]
 

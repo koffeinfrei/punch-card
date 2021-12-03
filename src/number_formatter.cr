@@ -4,15 +4,17 @@ class NumberFormatter
   def initialize(@number : Float64)
   end
 
-  def rounded
-    number.format(decimal_places: 2)
+  def as_time
+    hours = number.to_i
+    minutes = (number - hours).abs
+    "#{hours}:#{(60 * minutes).round.to_i.to_s.rjust(2, '0')}"
   end
 
-  def rounded_and_prefixed
+  def as_prefixed_time
     if number.positive?
-      "+#{rounded}"
+      "+#{as_time}"
     else
-      rounded
+      as_time
     end
   end
 end
