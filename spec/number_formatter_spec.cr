@@ -21,5 +21,9 @@ describe NumberFormatter do
     it "prefixes negative zero with '-'" do
       NumberFormatter.new(-0.25).as_prefixed_time.should eq "-0:15"
     end
+
+    it "does not prefix zero" do
+      NumberFormatter.new(0).as_prefixed_time.should eq "0:00"
+    end
   end
 end
