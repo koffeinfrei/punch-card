@@ -10,7 +10,7 @@ class InputAction
       start, stop = input.split("-")
 
       store = Store.new
-      store.insert(Store::EntryType::Start, DateParser.parse(start))
+      store.insert(Store::EntryType::Start, DateParser.parse(start), project)
       store.insert(Store::EntryType::Stop, DateParser.parse(stop))
     end
   end

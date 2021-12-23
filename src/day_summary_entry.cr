@@ -1,7 +1,14 @@
 struct DaySummaryEntry
   getter day, spans, sum
 
-  def initialize(@day : Time, @spans : Array(NamedTuple(from: Time, to: Time | Nil)), @sum : Time::Span)
+  def initialize(
+    @day : Time,
+    @spans : Array(NamedTuple(
+      from: Time,
+      to: Time | Nil,
+      project: String | Nil)),
+    @sum : Time::Span
+  )
   end
 
   def sum_in_hours
@@ -10,6 +17,10 @@ struct DaySummaryEntry
 
   def diff_in_hours
     sum_in_hours - 8
+  end
+
+  def projects
+    spans.map(&.[:project])
   end
 
   def empty?

@@ -21,7 +21,7 @@ class DaySummary
       raise WRONG_TYPE_FORMAT % {name: "from", entry: from, type: Store::EntryType::Start} if from.type != Store::EntryType::Start
       raise WRONG_TYPE_FORMAT % {name: "to", entry: to, type: Store::EntryType::Stop} if to && to.type != Store::EntryType::Stop
 
-      {from: from_time, to: to_time}
+      {from: from_time, to: to_time, project: from.project}
     end
 
     sum = span_entries.sum do |entry|

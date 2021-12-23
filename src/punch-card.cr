@@ -40,6 +40,10 @@ class PunchCard < Cli::Command
             Can be 'today', 'yesterday', 'month' or a specific date like '#{DateFormatter.new(Time.local).day_short}'
         DESC
 
+    string %w(-p --project),
+      required: false,
+      desc: "An optional project"
+
     help
     version
   end
@@ -51,7 +55,7 @@ class PunchCard < Cli::Command
 
   def run
     input = ([args.input] + args.nameless_args).join(" ")
-    action = InputActionParser.parse(input)
+    action = InputActionParser.parse(input, args.project?)
     action.run
   rescue e
     puts "There was a problem: \n#{e.message}"

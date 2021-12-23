@@ -23,6 +23,7 @@ class MonthTableOutput < TableOutput
         DateFormatter.new(entry.day).day_with_name,
         NumberFormatter.new(entry.sum_in_hours).as_time,
         NumberFormatter.new(entry.diff_in_hours).as_prefixed_time,
+        entry.projects.compact.join(", "),
       ]
     end
 
@@ -30,6 +31,7 @@ class MonthTableOutput < TableOutput
       t.add_column("Day", width: COLUMN_WIDTH) { |n| n[0] }
       t.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[1] }
       t.add_column("Diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right, styler: DIFF_STYLER) { |n| n[2] }
+      t.add_column("Projects", width: COLUMN_WIDTH, align_body: Tablo::Justify::Left) { |n| n[3] }
     end
   end
 

@@ -1,7 +1,8 @@
 abstract class InputAction
   getter input
+  getter project
 
-  def initialize(@input : String)
+  def initialize(@input : String, @project : String | Nil = nil)
   end
 
   def self.available_actions

@@ -8,7 +8,7 @@ class InputAction
 
     def run
       time = input.split(" ").last
-      Store.new.insert(Store::EntryType::Start, DateParser.parse(time))
+      Store.new.insert(Store::EntryType::Start, DateParser.parse(time), project)
     end
   end
 end

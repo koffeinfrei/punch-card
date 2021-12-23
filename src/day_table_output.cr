@@ -34,6 +34,7 @@ class DayTableOutput < TableOutput
         }.join("\n"),
         "#{"\n" * (span_count - 1)}#{NumberFormatter.new(day_summary_entry.sum_in_hours).as_time}",
         "#{"\n" * (span_count - 1)}#{NumberFormatter.new(day_summary_entry.diff_in_hours).as_prefixed_time}",
+        day_summary_entry.projects.join("\n"),
       ],
     ]
 
@@ -41,6 +42,7 @@ class DayTableOutput < TableOutput
       t.add_column("Entries", width: COLUMN_WIDTH) { |n| n[0] }
       t.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[1] }
       t.add_column("Diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right, styler: DIFF_STYLER) { |n| n[2] }
+      t.add_column("Project", width: COLUMN_WIDTH, align_body: Tablo::Justify::Left) { |n| n[3] }
     end
   end
 
