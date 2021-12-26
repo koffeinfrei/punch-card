@@ -15,10 +15,8 @@ class NumberFormatter
   def as_prefixed_time
     prefix =
       case number
-      when .positive?
-        "+"
-      when .negative?
-        "-"
+      when .positive? then "+"
+      when .negative? then "-"
       end
 
     "#{prefix}#{as_time}"
