@@ -29,9 +29,15 @@ This is a simple CLI to track your work time.
 ### Adding entries
 
 ```sh
+# Adding entries for today
 $ punch-card start now
 $ punch-card stop 12:00
 $ punch-card 13:00-17:00
+
+# Adding entries for an arbitrary day
+$ punch-card start 09:00 12.12.2021
+$ punch-card stop 12:00 12.12.2021
+$ punch-card 13:00-17:00 12.12.2021
 ```
 
 ### Showing entries

@@ -8,6 +8,9 @@ class DateParser
     literal_time = parse_literal_time(value)
     return literal_time unless literal_time.nil?
 
+    date_time = parse_date_time(value)
+    return date_time unless date_time.nil?
+
     date = parse_date(value)
     return date unless date.nil?
 
@@ -43,5 +46,10 @@ class DateParser
       Time.local(now.year, now.month, now.day, time.hour, time.minute)
     rescue
     end
+  end
+
+  def self.parse_date_time(value)
+    format = "#{I18n::Format.get("time")} #{I18n::Format.get("day_short")}"
+    Time.parse_local(value, format) rescue nil
   end
 end

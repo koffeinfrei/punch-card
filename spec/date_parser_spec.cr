@@ -48,6 +48,10 @@ describe DateParser do
       DateParser.parse("yesterday").should eq Time.local(2021, 10, 29, 0, 0)
     end
 
+    it "parses a date time" do
+      DateParser.parse("12:03 29.10.2021").should eq Time.local(2021, 10, 29, 12, 3)
+    end
+
     it "raises an error on uparseable input" do
       expect_raises(Exception, "The input value 'asdf' is not an understood date format") do
         DateParser.parse("asdf")

@@ -7,7 +7,7 @@ class InputAction
     end
 
     def run
-      time = input.split(" ").last
+      time = input.split(" ", limit: 2).last
       Store.new.insert(Store::EntryType::Stop, DateParser.parse(time))
     end
   end

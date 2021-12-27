@@ -22,18 +22,21 @@ class PunchCard < Cli::Command
         The input can be any string adhering to any of the following definitions. The format implies a specific action.
 
         Add an entry:
-          start <time>
+          start <time> [date]
             The time you start working
             Can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("08:15")).time}'
+            The date is 'today' by default
 
-          stop <time>
+          stop <time> [date]
             The time you stop working
             Can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("17:30")).time}'
+            The date is 'today' by default
 
-          span <start time>-<stop time>
+          span <start time>-<stop time> [date]
             A time span of work
             Must be in the format '<from>-<to>'
             <from> and <to> can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("17:30")).time}'
+            The date is 'today' by default
 
         Show an entry:
           <date>
