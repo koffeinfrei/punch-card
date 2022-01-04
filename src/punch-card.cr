@@ -62,6 +62,9 @@ class PunchCard < Cli::Command
     action.run
   rescue e
     puts "There was a problem: \n#{e.message}"
+    {% unless flag?(:release) %}
+      raise e
+    {% end %}
   end
 end
 
