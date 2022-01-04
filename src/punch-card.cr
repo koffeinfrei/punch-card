@@ -32,7 +32,7 @@ class PunchCard < Cli::Command
             Can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("17:30")).time}'
             The date is 'today' by default
 
-          span <start time>-<stop time> [date]
+          <start time>-<stop time> [date]
             A time span of work
             Must be in the format '<from>-<to>'
             <from> and <to> can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("17:30")).time}'
