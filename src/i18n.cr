@@ -33,9 +33,17 @@ module I18n
       locale = Path[{{path}}].stem
       day_short_format = yaml[locale]["date_format"].as_s
 
+      # month and year, without the day
+      month_short = day_short_format
+        .sub("%-d", "")
+        .sub("%d", "")
+        .sub("%e", "")
+        .strip("/. ")
+
       LOCALIZED["#{locale}"] = {
-        "day_short" => "#{day_short_format}",
-        "day_with_name" => "%a  #{day_short_format}"
+        "day_short" => day_short_format,
+        "day_with_name" => "%a  #{day_short_format}",
+        "month_short" => month_short
       }
     {% end %}
 

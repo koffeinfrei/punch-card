@@ -14,6 +14,10 @@ class DateFormatter
     date.to_local.to_s(I18n::Format.get("day_with_name"))
   end
 
+  def month_short
+    date.to_local.to_s(I18n::Format.get("month_short"))
+  end
+
   def month_with_name
     date.to_local.to_s(I18n::Format.get("month_with_name"))
   end

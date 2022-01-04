@@ -38,9 +38,13 @@ class PunchCard < Cli::Command
             <from> and <to> can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("17:30")).time}'
             The date is 'today' by default
 
-        Show an entry:
+        Show a day's entries:
           <date>
-            Can be 'today', 'yesterday', 'month' or a specific date like '#{DateFormatter.new(Time.local).day_short}'
+            Can be 'today', 'yesterday' or a specific date like '#{DateFormatter.new(Time.local).day_short}'
+
+        Show a month's entries:
+          <date>
+            Can be 'month' or a specific date like '#{DateFormatter.new(Time.local).month_short}'
         DESC
 
     string %w(-p --project),

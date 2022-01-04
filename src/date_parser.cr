@@ -52,4 +52,24 @@ class DateParser
     format = "#{I18n::Format.get("time")} #{I18n::Format.get("day_short")}"
     Time.parse_local(value, format) rescue nil
   end
+
+  class Month
+    def self.parse?(value)
+      literal_date = parse_literal_date(value)
+      return literal_date unless literal_date.nil?
+
+      date = parse_date(value)
+      return date unless date.nil?
+    end
+
+    def self.parse_literal_date(value)
+      now = Time.local
+
+      {now.year, now.month} if value == "month"
+    end
+
+    def self.parse_date(value)
+      Time.parse_local(value, I18n::Format.get("month_short")).date[0..1] rescue nil
+    end
+  end
 end

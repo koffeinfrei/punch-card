@@ -12,22 +12,22 @@ def today
 end
 
 describe DateParser do
-  describe ".parse" do
-    around_each do |example|
-      Timecop.freeze(now) do
-        example.run
-      end
-    end
-
-    around_each do |example|
-      locale_before = I18n::Locale.current
-      I18n::Locale.current = "de-CH"
-
+  around_each do |example|
+    Timecop.freeze(now) do
       example.run
-
-      I18n::Locale.current = locale_before
     end
+  end
 
+  around_each do |example|
+    locale_before = I18n::Locale.current
+    I18n::Locale.current = "de-CH"
+
+    example.run
+
+    I18n::Locale.current = locale_before
+  end
+
+  describe ".parse" do
     it "parses a time" do
       DateParser.parse("12:03").should eq Time.local(2021, 10, 30, 12, 3)
     end
@@ -55,6 +55,18 @@ describe DateParser do
     it "raises an error on uparseable input" do
       expect_raises(Exception, "The input value 'asdf' is not an understood date format") do
         DateParser.parse("asdf")
+      end
+    end
+  end
+
+  describe DateParser::Month do
+    describe ".parse?" do
+      it "parses 'month'" do
+        DateParser::Month.parse?("month").should eq({2021, 10})
+      end
+
+      it "parses a date consisting of month and year" do
+        DateParser::Month.parse?("09.2021").should eq({2021, 9})
       end
     end
   end

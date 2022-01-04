@@ -3,12 +3,11 @@ require "../input_action"
 class InputAction
   class ShowMonthInputAction < InputAction
     def matches?
-      input == "month"
+      DateParser::Month.parse?(input)
     end
 
     def run
-      month = Time.local.month
-      year = Time.local.year
+      year, month = DateParser::Month.parse?(input) || [] of Int32
 
       day_summary_entries = (1..Time.local.day).to_a
         .compact_map { |day|
