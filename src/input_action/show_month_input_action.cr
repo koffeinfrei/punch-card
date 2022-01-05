@@ -9,7 +9,15 @@ class InputAction
     def run
       year, month = DateParser::Month.parse?(input) || [] of Int32
 
-      day_summary_entries = (1..Time.local.day).to_a
+      today = Time.local
+      last_day =
+        if today.year == year && today.month == month
+          today.day
+        else
+          Time.local(year, month, 1).at_end_of_month.day
+        end
+
+      day_summary_entries = (1..last_day).to_a
         .compact_map { |day|
           date = Time.local(year, month, day)
           date unless date.saturday? || date.sunday?
