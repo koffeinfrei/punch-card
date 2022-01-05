@@ -1,4 +1,5 @@
 require "../input_action"
+require "../input_action/show_day_input_action"
 
 class InputAction
   class SpanInputAction < InputAction
@@ -21,6 +22,8 @@ class InputAction
       store = Store.new
       store.insert(Store::EntryType::Start, DateParser.parse(start), project)
       store.insert(Store::EntryType::Stop, DateParser.parse(stop))
+
+      ShowDayInputAction.new("today").run
     end
   end
 end
