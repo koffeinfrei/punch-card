@@ -7,10 +7,14 @@ class InputAction
     end
 
     def run
+      # a) hh:mm-hh:mm
+      # b) hh:mm-hh:mm mm.yyyy
       start, stop_and_date = input.split("-")
       stop_and_date = stop_and_date.split(" ")
       stop, date = stop_and_date[0], stop_and_date[1]?
 
+      # a) hh:mm
+      # b) hh:mm mm.yyyy
       start = [start, date].compact.join(" ")
       stop = [stop, date].compact.join(" ")
 
