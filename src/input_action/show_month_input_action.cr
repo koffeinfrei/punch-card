@@ -18,14 +18,16 @@ class InputAction
         end
 
       day_summary_entries = (1..last_day).to_a
-        .compact_map { |day|
-          date = Time.local(year, month, day)
-          date unless date.saturday? || date.sunday?
+        .map { |day|
+          Time.local(year, month, day)
         }
-        .map do |date|
+        .map { |date|
           raw_entries = Store.new.select(date)
           DaySummary.new(date, raw_entries).get
-        end
+        }
+        .reject { |entry|
+          (entry.day.saturday? || entry.day.sunday?) && entry.empty?
+        }
 
       puts MonthTableOutput.new(day_summary_entries).render
     end
