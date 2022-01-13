@@ -1,4 +1,14 @@
 struct DaySummaryEntry
+  HOURS_PER_DAY = {
+    Time::DayOfWeek::Monday    => 8,
+    Time::DayOfWeek::Tuesday   => 8,
+    Time::DayOfWeek::Wednesday => 8,
+    Time::DayOfWeek::Thursday  => 8,
+    Time::DayOfWeek::Friday    => 8,
+    Time::DayOfWeek::Saturday  => 0,
+    Time::DayOfWeek::Sunday    => 0,
+  }
+
   getter day, spans, sum
 
   def initialize(
@@ -16,7 +26,7 @@ struct DaySummaryEntry
   end
 
   def diff_in_hours
-    sum_in_hours - 8
+    sum_in_hours - HOURS_PER_DAY[@day.day_of_week]
   end
 
   def projects
