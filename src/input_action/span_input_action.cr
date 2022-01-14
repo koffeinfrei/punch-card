@@ -23,7 +23,7 @@ class InputAction
       store.insert(Store::EntryType::Start, DateParser.parse(start), project)
       store.insert(Store::EntryType::Stop, DateParser.parse(stop))
 
-      ShowDayInputAction.new("today").run
+      ShowDayInputAction.new(start).run
     end
   end
 end

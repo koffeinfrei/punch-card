@@ -11,7 +11,7 @@ class InputAction
       time = input.split(" ", limit: 2).last
       Store.new.insert(Store::EntryType::Stop, DateParser.parse(time))
 
-      ShowDayInputAction.new("today").run
+      ShowDayInputAction.new(time).run
     end
   end
 end
