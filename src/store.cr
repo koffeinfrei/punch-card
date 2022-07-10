@@ -22,16 +22,25 @@ class Store
     end
   end
 
+  def update(id, time)
+    with_database do |db|
+      db.exec("UPDATE entries SET time =  ? where uuid = ?",
+        time,
+        id
+      )
+    end
+  end
+
   def select(time)
     data = [] of Entry
     with_database do |db|
       db.query(
-        "SELECT time, type, project FROM entries WHERE strftime('%Y-%m-%d', time) = ? ORDER BY time ASC, type DESC",
+        "SELECT uuid, time, type, project FROM entries WHERE strftime('%Y-%m-%d', time) = ? ORDER BY time ASC, type DESC",
         time.to_s("%Y-%m-%d")
       ) do |result|
         result.each do
-          time, type, project = result.read(Time, Int, String | Nil)
-          data << Entry.new(EntryType.from_value(type), time, project)
+          id, time, type, project = result.read(String, Time, Int, String | Nil)
+          data << Entry.new(id, EntryType.from_value(type), time, project)
         end
       end
     end
