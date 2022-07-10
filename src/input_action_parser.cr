@@ -1,5 +1,4 @@
 require "./input_action"
-require "./input_action/*"
 
 class InputActionParser
   def self.parse(input, project)

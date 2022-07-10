@@ -13,5 +13,17 @@ class InputAction
 
       ShowDayInputAction.new(time).run
     end
+
+    def self.description
+      {
+        "Add an entry",
+        <<-DESC
+          start <time> [date]
+              The time you start working
+              Can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("08:15")).time}'
+              The date is 'today' by default
+          DESC
+      }
+    end
   end
 end

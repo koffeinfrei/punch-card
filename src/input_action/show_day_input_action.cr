@@ -15,5 +15,15 @@ class InputAction
 
       puts DayTableOutput.new(day_summary_entry).render
     end
+
+    def self.description
+      {
+        "Show a day's entries",
+        <<-DESC
+          <date>
+              Can be 'today', 'yesterday' or a specific date like '#{DateFormatter.new(Time.local).day_short}'
+          DESC
+      }
+    end
   end
 end

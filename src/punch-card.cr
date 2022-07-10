@@ -16,35 +16,22 @@ class PunchCard < Cli::Command
   version {{ `shards version #{__DIR__}`.chomp.stringify }}
 
   class Options
+    descriptions = InputAction.available_actions.compact_map { |input_action|
+      input_action.description
+    }
+      .sort! { |a, b| a.first <=> b.first }
+      .group_by(&.first)
+      .map { |(group, entries)|
+        "#{group}:\n" +
+          entries.map(&.last).map { |entry| "  #{entry}" }.join("\n\n")
+      }.join("\n\n")
+
     arg "input",
       required: true,
       desc: <<-DESC
         The input can be any string adhering to any of the following definitions. The format implies a specific action.
 
-        Add an entry:
-          start <time> [date]
-            The time you start working
-            Can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("08:15")).time}'
-            The date is 'today' by default
-
-          stop <time> [date]
-            The time you stop working
-            Can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("17:30")).time}'
-            The date is 'today' by default
-
-          <start time>-<stop time> [date]
-            A time span of work
-            Must be in the format '<from>-<to>'
-            <from> and <to> can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("17:30")).time}'
-            The date is 'today' by default
-
-        Show a day's entries:
-          <date>
-            Can be 'today', 'yesterday' or a specific date like '#{DateFormatter.new(Time.local).day_short}'
-
-        Show a month's entries:
-          <date>
-            Can be 'month' or a specific date like '#{DateFormatter.new(Time.local).month_short}'
+        #{descriptions}
         DESC
 
     string %w(-p --project),

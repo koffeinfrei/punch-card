@@ -31,5 +31,15 @@ class InputAction
 
       puts MonthTableOutput.new(day_summary_entries).render
     end
+
+    def self.description
+      {
+        "Show a month's entries",
+        <<-DESC
+          <date>
+              Can be 'month' or a specific date like '#{DateFormatter.new(Time.local).month_short}'
+          DESC
+      }
+    end
   end
 end

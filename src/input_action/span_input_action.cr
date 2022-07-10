@@ -25,5 +25,18 @@ class InputAction
 
       ShowDayInputAction.new(start).run
     end
+
+    def self.description
+      {
+        "Add an entry",
+        <<-DESC
+          <start time>-<stop time> [date]
+              A time span of work
+              Must be in the format '<from>-<to>'
+              <from> and <to> can be 'now' or a specific time like '#{DateFormatter.new(DateParser.parse("17:30")).time}'
+              The date is 'today' by default
+          DESC
+      }
+    end
   end
 end

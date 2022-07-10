@@ -9,6 +9,11 @@ abstract class InputAction
     {{@type.subclasses}}
   end
 
+  def self.description
+  end
+
   abstract def matches?
   abstract def run
 end
+
+require "./input_action/*"
