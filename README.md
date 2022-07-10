@@ -129,6 +129,21 @@ $ scripts/version bump:minor
 $ scripts/version bump:patch
 ```
 
+### Build snap
+
+```bash
+$ snapcraft
+...
+Snapped punch-card_<version>_amd64.snap
+
+$ snapcraft upload punch-card_<version>_amd64.snap
+...
+Revision <revision> created for 'punch-card'
+
+$ snapcraft release punch-card <revision> candidate
+$ snapcraft release punch-card <revision> stable
+```
+
 ---
 
 Made with ☕️  by [Koffeinfrei](https://github.com/koffeinfrei)
