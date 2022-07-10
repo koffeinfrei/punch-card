@@ -1,3 +1,3 @@
 ---
 en-CA:
-  date_format: "%d-%m-%Y"
+  date_format: "%Y-%m-%d"
