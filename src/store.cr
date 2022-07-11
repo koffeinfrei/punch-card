@@ -48,6 +48,19 @@ class Store
     data
   end
 
+  def select_projects
+    data = [] of String
+    with_database do |db|
+      db.query("SELECT DISTINCT project FROM entries WHERE project IS NOT NULL") do |result|
+        result.each do
+          data << result.read(String)
+        end
+      end
+    end
+
+    data
+  end
+
   private def with_database
     Dir.mkdir_p(File.dirname(FILE))
 
