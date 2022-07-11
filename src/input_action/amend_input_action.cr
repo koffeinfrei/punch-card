@@ -17,7 +17,7 @@ class InputAction
 
     def self.description
       {
-        "Amends the last entry",
+        "Amend the last entry",
         <<-DESC
           amend <time>
               The time you want to update the last entry with
