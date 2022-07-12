@@ -1,5 +1,6 @@
 require "cli"
 require "tablo"
+require "colorize"
 
 require "./store"
 require "./date_parser"
@@ -52,8 +53,9 @@ class PunchCard < Cli::Command
     action = InputActionParser.parse(input, args.project?)
     action.run
   rescue e
-    puts "There was a problem: \n#{e.message}"
+    STDERR.puts e.message.colorize(:red)
     {% unless flag?(:release) %}
+      puts "\n__DEBUG DEV OUTPUT__\n\n"
       raise e
     {% end %}
   end
