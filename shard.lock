@@ -2,7 +2,7 @@ version: 2.0
 shards:
   ameba:
     git: https://github.com/crystal-ameba/ameba.git
-    version: 1.0.0
+    version: 1.4.3
 
   callback:
     git: https://github.com/amberframework/callback.git
@@ -30,5 +30,5 @@ shards:
 
   timecop:
     git: https://github.com/crystal-community/timecop.cr.git
-    version: 0.4.1
+    version: 0.5.0
 

@@ -25,6 +25,6 @@ targets:
   punch-card:
     main: src/punch-card.cr
 
-crystal: 1.2.1
+crystal: 1.8.2
 
 license: GPL-3.0

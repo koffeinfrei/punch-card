@@ -61,7 +61,7 @@ class Store
     data
   end
 
-  private def with_database
+  private def with_database(&)
     Dir.mkdir_p(File.dirname(FILE))
 
     DB.open "sqlite3://#{FILE}" do |db|
