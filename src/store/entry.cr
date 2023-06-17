@@ -1,7 +1,11 @@
 require "./entry_type"
 
 record Store::Entry,
-  id : String,
+  id : String | Nil,
   type : EntryType,
   time : Time,
-  project : String | Nil
+  project : String | Nil do
+  def start?
+    type == EntryType::Start
+  end
+end

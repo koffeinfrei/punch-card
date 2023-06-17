@@ -13,6 +13,17 @@ abstract class TableOutput
     cell.colorize(color).to_s
   end
 
+  # Adds a yellow background to the text between `*text*`.
+  # At the end we add to whitespaces to keep the length of the cell
+  HIGHLIGHT_STYLER = ->(cell : Tablo::CellType) do
+    match = cell.to_s.match(/(.*)\*(.+)\*(.*)/)
+    if match
+      "#{match[1]}#{match[2].colorize(:black).back(:yellow).to_s}#{match[3]}  "
+    else
+      cell.to_s
+    end
+  end
+
   abstract def empty?
   abstract def header_content
   abstract def render_table

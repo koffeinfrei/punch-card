@@ -23,14 +23,26 @@ class DayTableOutput < TableOutput
     table_data = [
       [
         day_summary_entry.spans.map { |entry|
-          from = entry[:from]
-          to = entry[:to]
+          from = entry[:from][:time]
+          to = entry[:to][:time]
 
-          if to
-            "#{DateFormatter.new(from).time} - #{DateFormatter.new(to).time}"
-          else
-            "#{DateFormatter.new(from).time} - "
-          end
+          from_time =
+            if entry[:from][:draft]
+              "*#{DateFormatter.new(from).time}*"
+            else
+              DateFormatter.new(from).time
+            end
+
+          to_time =
+            if to
+              if entry[:to][:draft]
+                "*#{DateFormatter.new(to).time}*"
+              else
+                DateFormatter.new(to).time
+              end
+            end
+
+          "#{from_time} - #{to_time}"
         }.join("\n"),
         "#{"\n" * (span_count - 1)}#{NumberFormatter.new(day_summary_entry.sum_in_hours).as_time}",
         "#{"\n" * (span_count - 1)}#{NumberFormatter.new(day_summary_entry.diff_in_hours).as_prefixed_time}",
@@ -39,7 +51,7 @@ class DayTableOutput < TableOutput
     ]
 
     Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED) do |t|
-      t.add_column("Entries", width: COLUMN_WIDTH) { |n| n[0] }
+      t.add_column("Entries", width: COLUMN_WIDTH, styler: HIGHLIGHT_STYLER) { |n| n[0] }
       t.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[1] }
       t.add_column("Diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right, styler: DIFF_STYLER) { |n| n[2] }
       t.add_column("Project", width: COLUMN_WIDTH, align_body: Tablo::Justify::Left) { |n| n[3] }

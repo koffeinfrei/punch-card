@@ -14,8 +14,12 @@ struct DaySummaryEntry
   def initialize(
     @day : Time,
     @spans : Array(NamedTuple(
-      from: Time,
-      to: Time | Nil,
+      from: NamedTuple(
+        time: Time,
+        draft: Bool),
+      to: NamedTuple(
+        time: Time | Nil,
+        draft: Bool),
       project: String | Nil)),
     @sum : Time::Span
   )

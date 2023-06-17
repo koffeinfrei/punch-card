@@ -21,12 +21,20 @@ class DaySummary
       raise WRONG_TYPE_FORMAT % {name: "from", entry: from, type: Store::EntryType::Start} if from.type != Store::EntryType::Start
       raise WRONG_TYPE_FORMAT % {name: "to", entry: to, type: Store::EntryType::Stop} if to && to.type != Store::EntryType::Stop
 
-      {from: from_time, to: to_time, project: from.project}
+      {
+        from: {
+          time: from_time, draft: from.id.nil?,
+        },
+        to: {
+          time: to_time, draft: to.try(&.id).nil?,
+        },
+        project: from.project,
+      }
     end
 
     sum = span_entries.sum do |entry|
-      from = entry[:from]
-      to = entry[:to]
+      from = entry[:from][:time]
+      to = entry[:to]?.try(&.[:time])
 
       if to
         to - from
