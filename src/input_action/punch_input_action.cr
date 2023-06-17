@@ -27,6 +27,7 @@ class InputAction
 
       puts DayTableOutput.new(day_summary_entry).render
       print "  ➜   Ok to add the highlighted entry? [y/n]: ".colorize(:blue)
+      STDOUT.flush
 
       if gets == "y"
         Store.new.insert(type, Date.nowish, project)
