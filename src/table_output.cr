@@ -18,7 +18,7 @@ abstract class TableOutput
   HIGHLIGHT_STYLER = ->(cell : Tablo::CellType) do
     match = cell.to_s.match(/(.*)\*(.+)\*(.*)/)
     if match
-      "#{match[1]}#{match[2].colorize(:black).back(:yellow).to_s}#{match[3]}  "
+      "#{match[1]}#{match[2].colorize(:black).back(:yellow)}#{match[3]}  "
     else
       cell.to_s
     end
