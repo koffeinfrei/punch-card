@@ -4,7 +4,7 @@
 
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/koffeinfrei/punch-card?color=lightblue&label=version&sort=semver&style=flat-square)
 &nbsp;
-[![Build Status](https://img.shields.io/github/workflow/status/koffeinfrei/punch-card/CI.svg?label=CI&style=flat-square)](https://github.com/koffeinfrei/punch-card/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/koffeinfrei/punch-card/ci.yml?branch=main&label=CI&style=flat-square)](https://github.com/koffeinfrei/punch-card/actions)
 &nbsp;
 ![License](https://img.shields.io/github/license/koffeinfrei/punch-card.svg?style=flat-square)
 
