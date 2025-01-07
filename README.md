@@ -26,6 +26,16 @@ This is a simple CLI to track your work time.
 
 ## Usage
 
+### Basic usage
+
+```sh
+# Punching in (adds the current time as a start time entry)
+$ punch-card punch
+
+# Punching out (adds the current time as a stop time entry)
+$ punch-card punch
+```
+
 ### Adding entries
 
 ```sh
