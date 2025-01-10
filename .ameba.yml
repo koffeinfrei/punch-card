@@ -1,0 +1,6 @@
+Naming/BlockParameterName:
+  Enabled: true
+  AllowedNames:
+    - a
+    - b
+    - db

@@ -27,11 +27,11 @@ class MonthTableOutput < TableOutput
       ]
     end
 
-    Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED) do |t|
-      t.add_column("Day", width: COLUMN_WIDTH) { |n| n[0] }
-      t.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[1] }
-      t.add_column("Diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right, styler: DIFF_STYLER) { |n| n[2] }
-      t.add_column("Projects", width: COLUMN_WIDTH, align_body: Tablo::Justify::Left) { |n| n[3] }
+    Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED) do |table|
+      table.add_column("Day", width: COLUMN_WIDTH) { |data| data[0] }
+      table.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |data| data[1] }
+      table.add_column("Diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right, styler: DIFF_STYLER) { |data| data[2] }
+      table.add_column("Projects", width: COLUMN_WIDTH, align_body: Tablo::Justify::Left) { |data| data[3] }
     end
   end
 
@@ -44,10 +44,10 @@ class MonthTableOutput < TableOutput
       ],
     ]
 
-    Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED, header_frequency: nil) do |t|
-      t.add_column("Total label", width: COLUMN_WIDTH) { |n| n[0] }
-      t.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[1] }
-      t.add_column("Total diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right, styler: DIFF_STYLER) { |n| n[2] }
+    Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED, header_frequency: nil) do |table|
+      table.add_column("Total label", width: COLUMN_WIDTH) { |data| data[0] }
+      table.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |data| data[1] }
+      table.add_column("Total diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right, styler: DIFF_STYLER) { |data| data[2] }
     end
   end
 end

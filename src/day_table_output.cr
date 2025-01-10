@@ -50,11 +50,11 @@ class DayTableOutput < TableOutput
       ],
     ]
 
-    Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED) do |t|
-      t.add_column("Entries", width: COLUMN_WIDTH, styler: HIGHLIGHT_STYLER) { |n| n[0] }
-      t.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |n| n[1] }
-      t.add_column("Diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right, styler: DIFF_STYLER) { |n| n[2] }
-      t.add_column("Project", width: COLUMN_WIDTH, align_body: Tablo::Justify::Left) { |n| n[3] }
+    Tablo::Table.new(table_data, connectors: Tablo::CONNECTORS_SINGLE_ROUNDED) do |table|
+      table.add_column("Entries", width: COLUMN_WIDTH, styler: HIGHLIGHT_STYLER) { |data| data[0] }
+      table.add_column("Total hours", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right) { |data| data[1] }
+      table.add_column("Diff", width: COLUMN_WIDTH, align_body: Tablo::Justify::Right, styler: DIFF_STYLER) { |data| data[2] }
+      table.add_column("Project", width: COLUMN_WIDTH, align_body: Tablo::Justify::Left) { |data| data[3] }
     end
   end
 

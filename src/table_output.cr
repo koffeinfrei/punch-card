@@ -48,8 +48,8 @@ abstract class TableOutput
   end
 
   private def render_empty
-    Tablo::Table.new([["No entries"]], connectors: Tablo::CONNECTORS_SINGLE_ROUNDED, header_frequency: nil) do |t|
-      t.add_column("", width: 16) { |n| n[0] }
+    Tablo::Table.new([["No entries"]], connectors: Tablo::CONNECTORS_SINGLE_ROUNDED, header_frequency: nil) do |table|
+      table.add_column("", width: 16) { |data| data[0] }
     end
   end
 end
