@@ -1,5 +1,5 @@
 name: punch-card
-base: core18
+base: core20
 version: 0.11.0
 title: Punch card
 summary: Work time tracker
